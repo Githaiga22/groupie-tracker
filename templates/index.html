@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupie Trackers</title>
+</head>
+<body>
+    <h1>Artists</h1>
+    <ul>
+        {{range .}}
+            <li>
+                <img src="{{.Image}}" alt="{{.Name}}" width="50" height="50">
+                <h2>{{.Name}}</h2>
+                <p>Members: {{range .Members}}{{.}}, {{end}}</p>
+                <p>Creation Date: {{.CreationDate}}</p>
+                <p>First Album: {{.FirstAlbum}}</p>
+            </li>
+        {{end}}
+    </ul>
+</body>
+</html>
