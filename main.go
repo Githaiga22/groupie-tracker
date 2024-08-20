@@ -16,8 +16,8 @@ type Artist struct {
     FirstAlbum  string   `json:"firstAlbum"`
 }
 
-func fetchArtists() ([]Artist, error) {
-    resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+func fetchArtists(url string) ([]Artist, error) {
+    resp, err := http.Get(url)
     if err != nil {
         return nil, err
     }
@@ -32,20 +32,26 @@ func fetchArtists() ([]Artist, error) {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-    artists, err := fetchArtists()
+    artists, err := fetchArtists("https://groupietrackers.herokuapp.com/api/artists")
     if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
+        http.Error(w, "Secure connection failed", http.StatusInternalServerError)
+        log.Println(err)
         return
     }
 
     tmpl := template.Must(template.ParseFiles("templates/index.html"))
     if err := tmpl.Execute(w, artists); err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
+        http.Error(w, "Loading template failed", http.StatusInternalServerError)
+        log.Println(err)
     }
 }
 
 func main() {
     http.HandleFunc("/", handler)
-	log.Print("Starting server at http://localhost:8080")
+
+    staticDir := http.Dir("static")
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(staticDir)))
+	
+    log.Print("Starting server at http://localhost:8080")
     log.Fatal(http.ListenAndServe(":8080", nil))
 }
