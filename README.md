@@ -24,7 +24,7 @@
 ### Installation
 1. Clone the repository: 
 ```bash
-git clone https://github.com/Githaiga22/groupie-tracker.git
+git clone https://learn.zone01kisumu.ke/git/allkamau/groupie-tracker.git
 ```
 2. Navigate to the project directory:
 ```bash
@@ -74,8 +74,10 @@ Groupie Tracker is licensed under the MIT License. See LICENSE for details.
 
 ### Author
 - Githaiga22
-- [allangithaiga5@gmail.com](mailto:allangithaiga5@gmail.com)
+- fred gitonga
+- Rodney Otieno
 
 ### Github Profile
 - Github profile: [Githaiga22](https://github.com/Githaiga22)
-
+-  Github profile: [fred gitonga](https://github.com/FredMunene)
+-  Github profile: [rodney otieno](https://github.com/rodneyo1)
