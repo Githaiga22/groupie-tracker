@@ -1,3 +1,66 @@
-h1 {
-    background-color: rgb(238, 14, 14);
+/* Container for the grid */
+body{
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu;
+    background-color: whitesmoke;
 }
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+/* Card styling */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: transform 0.3s ease-in-out;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    height: 100%; /* Ensure cards are of equal height */
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* On hover, the card expands slightly */
+.card:hover {
+    transform: scale(1.05);
+    z-index: 1; /* Bring the hovered card in front of others */
+}
+
+/* Image styling */
+img {
+    border-radius: 5px 5px 0 0;
+    width: 100%;
+}
+
+/* Container styling */
+.container {
+    padding: 2px 16px;
+    position: relative;
+}
+
+/* Members section initially hidden */
+.members {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+}
+
+/* Show members on hover without affecting layout */
+.card:hover .members {
+    opacity: 1;
+    max-height: 100px; /* Adjust this value based on content */
+    color: #09a14e;
+}
+.card img {
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover img {
+    transform: scale(1.1);
+    /* translate: ; */
+} 
