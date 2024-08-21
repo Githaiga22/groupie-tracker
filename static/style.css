@@ -2,6 +2,8 @@
 body{
     font-family:system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu;
     background-color: whitesmoke;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 .grid-container {
     display: grid;
@@ -20,8 +22,6 @@ body{
     overflow: hidden;
     height: 100%; /* Ensure cards are of equal height */
     text-align: center;
-    -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 /* On hover, the card expands slightly */
