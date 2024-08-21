@@ -5,16 +5,52 @@ body {
     background-position: center; /* Center the background image */
     margin: 0; /* Remove default margin */
     padding: 20px; /* Add padding around the body */
-    color: #fff; /* Set default text color to white for better contrast */
+    color: #ffffff; /* Set default text color to white for better contrast */
+}
+
+header {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between title and search bar */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 20px; /* Space below the header */
 }
 
 h1 {
-    background-color: rgba(238, 14, 14, 0.8); /* Semi-transparent background for the heading */
+    background-color: rgba(14, 186, 238, 0.8); /* Semi-transparent background for the heading */
     color: #fff; /* White text color */
     padding: 10px; /* Padding around the heading */
     border-radius: 8px; /* Rounded corners for the heading */
     text-align: center; /* Center the heading text */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    flex-grow: 1; /* Allow the heading to take available space */
+    margin-right: 20px; /* Add space to the right of the heading */
+}
+
+.search-container {
+    display: flex; /* Use flexbox for search bar alignment */
+    align-items: center; /* Center items vertically */
+}
+
+.search-input {
+    padding: 5px; /* Padding inside the search input */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size for the input */
+    width: 150px; /* Width of the search input */
+}
+
+.search-button {
+    padding: 5px 10px; /* Padding for the search button */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #007bff; /* Button color */
+    color: white; /* Text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-left: 5px; /* Space between input and button */
+}
+
+.search-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
 }
 
 ul {
