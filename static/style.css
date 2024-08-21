@@ -1,3 +1,73 @@
+body {
+    font-family: Arial, sans-serif; /* Set a clean font for the body */
+    background-image: url('https://example.com/your-background-image.jpg'); /* Replace with your image URL */
+    background-size: cover; /* Cover the entire background */
+    background-position: center; /* Center the background image */
+    margin: 0; /* Remove default margin */
+    padding: 20px; /* Add padding around the body */
+    color: #fff; /* Set default text color to white for better contrast */
+}
+
 h1 {
-    background-color: rgb(238, 14, 14);
+    background-color: rgba(238, 14, 14, 0.8); /* Semi-transparent background for the heading */
+    color: #fff; /* White text color */
+    padding: 10px; /* Padding around the heading */
+    border-radius: 8px; /* Rounded corners for the heading */
+    text-align: center; /* Center the heading text */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow wrapping of cards */
+    justify-content: center; /* Center the cards */
+}
+
+li {
+    width: 22%; /* Set the width of each list item to 22% (4 per row with space) */
+    padding: 10px; /* Add some padding around each list item */
+    box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+.card {
+    position: relative; /* Position relative for absolute positioning of hover text */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    transition: 0.3s; /* Smooth transition for hover effect */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #ffffff; /* White background for cards */
+    overflow: hidden; /* Prevent overflow of content */
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    transform: translateY(-10px); /* Move the card up slightly on hover */
+}
+
+.container {
+    padding: 16px; /* Padding inside the card */
+    text-align: center; /* Center the text */
+}
+
+.container img {
+    width: 100%; /* Make image responsive */
+    border-top-left-radius: 8px; /* Rounded corners for the top */
+    border-top-right-radius: 8px; /* Rounded corners for the top */
+    transition: transform 0.3s; /* Smooth transition for image lift */
+}
+
+.card:hover .container img {
+    transform: translateY(-10px); /* Move the image up on hover */
+}
+
+.artist-name {
+    display: none; /* Hide the artist name by default */
+    font-size: 1.2em; /* Font size for the artist name */
+    color: #007bff; /* Blue color for artist names */
+    margin-top: 10px; /* Space above the artist name */
+}
+
+.card:hover .artist-name {
+    display: block; /* Show the artist name on hover */
 }
