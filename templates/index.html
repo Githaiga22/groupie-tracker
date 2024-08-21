@@ -5,17 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Groupie Trackers</title>
     <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Set a clean font for the body */
+            background-color: #e9ecef; /* Light gray background for the body */
+            margin: 0; /* Remove default margin */
+            padding: 20px; /* Add padding around the body */
+        }
+
+        h1 {
+            text-align: center; /* Center the main heading */
+            color: #343a40; /* Darker color for the heading */
+            margin-bottom: 20px; /* Space below the heading */
+        }
+
+        ul {
+            list-style-type: none; /* Remove bullet points */
+            padding: 0; /* Remove padding */
+            display: flex; /* Use flexbox for layout */
+            flex-wrap: wrap; /* Allow wrapping of cards */
+            justify-content: center; /* Center the cards */
+        }
+
+        li {
+            width: 25%; /* Set the width of each list item to 25% (4 per row) */
+            padding: 15px; /* Add some padding around each list item */
+            box-sizing: border-box; /* Include padding in the width calculation */
+        }
+
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+            transition: 0.3s; /* Smooth transition for hover effect */
+            border-radius: 8px; /* Rounded corners */
+            background-color: #ffffff; /* White background for cards */
+            overflow: hidden; /* Prevent overflow of content */
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+            transform: translateY(-10px); /* Move the card up slightly on hover */
+        }
+
+        .container {
+            padding: 16px; /* Padding inside the card */
+            text-align: center; /* Center the text */
+        }
+
+        .container img {
+            width: 100%; /* Make image responsive */
+            border-top-left-radius: 8px; /* Rounded corners for the top */
+            border-top-right-radius: 8px; /* Rounded corners for the top */
+            transition: transform 0.3s; /* Smooth transition for image lift */
+        }
+
+        .card:hover .container img {
+            transform: translateY(-10px); /* Move the image up on hover */
+        }
+
+        .artist-name {
+            display: none; /* Hide the artist name by default */
+            font-size: 1.2em; /* Font size for the artist name */
+            color: #007bff; /* Blue color for artist names */
+            margin-top: 10px; /* Space above the artist name */
+        }
+
+        .card:hover .artist-name {
+            display: block; /* Show the artist name on hover */
+        }
+    </style>
 </head>
 <body>
     <h1>Artists</h1>
     <ul>
         {{range .}}
             <li>
-                <img src="{{.Image}}" alt="{{.Name}}" width="50" height="50">
-                <h2>{{.Name}}</h2>
-                <p>Members: {{range .Members}}{{.}}, {{end}}</p>
-                <p>Creation Date: {{.CreationDate}}</p>
-                <p>First Album: {{.FirstAlbum}}</p>
+                <div class="card">
+                    <div class="container">
+                        <img src="{{.Image}}" alt="{{.Name}}"> <!-- Artist image -->
+                        <h2 class="artist-name">{{.Name}}</h2> <!-- Artist name hidden by default -->
+                    </div>
+                </div>
             </li>
         {{end}}
     </ul>
