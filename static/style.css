@@ -1,5 +1,5 @@
 /* Container for the grid */
-body{
+* {
     font-family:system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu;
     background-color: whitesmoke;
     -webkit-font-smoothing: antialiased;
@@ -7,10 +7,12 @@ body{
 }
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 2fr));
     gap: 20px;
     padding: 0;
     list-style: none;
+    margin-right: 5%;
+    margin-left: 5%;
 }
 
 /* Card styling */
@@ -25,10 +27,11 @@ body{
 }
 
 /* On hover, the card expands slightly */
-.card:hover {
+
+/* .card:hover {
     transform: scale(1.05);
     z-index: 1; /* Bring the hovered card in front of others */
-}
+/*} */
 
 /* Image styling */
 img {
@@ -48,6 +51,7 @@ img {
     max-height: 0;
     overflow: hidden;
     transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+    font-size: smaller;
 }
 
 /* Show members on hover without affecting layout */
@@ -62,5 +66,4 @@ img {
 
 .card:hover img {
     transform: scale(1.1);
-    /* translate: ; */
 } 

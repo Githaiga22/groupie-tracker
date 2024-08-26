@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Name}}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>{{.Name}}</h1>
+    <img src="{{.Image}}" alt="{{.Name}}">
+    <p>Members: {{range .Members}}{{.}}, {{end}}</p>
+    <p>Creation Date: {{.CreationDate}}</p>
+    <p>First Album: {{.FirstAlbum}}</p>
+
+    <h1>Events</h1>
+    {{range $location, $dates := .Relation.DatesLocations}}
+        <h3>{{ $location }}</h3>
+        <ul>
+            {{range $date := $dates}}
+                <li>{{ $date }}</li>
+            {{end}}
+        </ul>
+    {{else}}
+        <p>No events available</p>
+    {{end}}
+    
+</body>
+</html>

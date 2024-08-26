@@ -11,13 +11,14 @@
     <ul class="grid-container">
         {{range .}}
         <li class="card">
-            <img src="{{.Image}}" alt="{{.Name}}">
-            <div class="container">
-                <h4>{{.Name}}</h4>
-                <p>Creation Date: {{.CreationDate}}</p>
-                <p>First Album: {{.FirstAlbum}}</p>
-                <p class="members">Members: {{range .Members}}{{.}}, {{end}}</p>
-            </div>
+            <a href="/artist/{{.ID}}">
+                <img src="{{.Image}}" alt="{{.Name}}">
+                <div class="container">
+                    <h4>{{.Name}}</h4>
+                    <p>Creation Date: {{.CreationDate}}</p>
+                    <p>First Album: {{.FirstAlbum}}</p>
+                </div>
+            </a>
         </li>
         {{end}}
     </ul>
