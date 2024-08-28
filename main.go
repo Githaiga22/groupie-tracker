@@ -4,11 +4,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
+	"strconv"
+	"text/template"
 )
 
 type Artist struct {
-	ID           int      `json:"id"`
+	Id           int      `json:"id"`
 	Name         string   `json:"name"`
 	Image        string   `json:"image"`
 	Members      []string `json:"members"`
@@ -33,7 +36,14 @@ type DatesLocation struct {
 	Places   DatesLocations `json:"datesLocations"`
 }
 
-////////////////////////////////////////////////////////////
+// type Data struct {
+// 	Image string
+// 	Members []string
+// 	FirstAlbum string
+// 	DatesLocation DatesLocations 
+// }
+
+// //////////////////////////////////////////////////////////
 // dates api
 type RootDates struct {
 	Tdates []Date `json:"index"`
@@ -45,8 +55,8 @@ type Date struct {
 
 //
 
-func fetchArtists(url string) ([]Artist, error) {
-	resp, err := http.Get(url)
+func fetchArtists() ([]Artist, error) {
+	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	if err != nil {
 		return nil, err
 	}
@@ -57,14 +67,14 @@ func fetchArtists(url string) ([]Artist, error) {
 		return nil, err
 	}
 
-	return artists, nil
+	return artists[:12], nil
 }
 
-func fetchDatesAndConcerts(url string) {
-	resp, err := http.Get(url)
+func fetchDatesAndConcerts(id string) (DatesLocations, error) {
+	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/relation")
 	if err != nil {
 		fmt.Println("Error reading the response body:", err)
-		return
+		return nil, err
 	}
 	defer resp.Body.Close()
 
@@ -78,7 +88,7 @@ func fetchDatesAndConcerts(url string) {
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println("Error reading the response body:", err)
-		return
+		return nil, err
 	}
 
 	// Unmarshal the JSON data into Go structs
@@ -86,50 +96,114 @@ func fetchDatesAndConcerts(url string) {
 	err = json.Unmarshal(body, &data)
 	if err != nil {
 		fmt.Println("Error unmarshalling JSON:", err)
-		return
+		return nil, err
 	}
-	// fmt.Printf("%+v\n", data)
 
-    for _,id := range data.Index{
-        println(id.ArtistId)
-        for key, char := range id.Places{
-            println(key,char[0])
-        }
-    }
+	var datesLocations DatesLocations
+
+	for _, Artistid := range data.Index {
+		idNum := strconv.Itoa(Artistid.ArtistId)
+		if idNum == id {
+			datesLocations = Artistid.Places
+		}
+	}
+
+	// fmt.Printf("%+v\n", data)
+	return datesLocations, nil
 }
 
-// func handler(w http.ResponseWriter, r *http.Request) {
-//     artists, err := fetchArtists("https://groupietrackers.herokuapp.com/api/artists")
-//     if err != nil {
-//         http.Error(w, "Secure connection failed", http.StatusInternalServerError)
-//         log.Println(err)
-//         return
-//     }
+func handler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
 
-//     tmpl := template.Must(template.ParseFiles("templates/index.html"))
-//     if err := tmpl.Execute(w, artists); err != nil {
-//         http.Error(w, "Loading template failed", http.StatusInternalServerError)
-//         log.Println(err)
-//     }
-// }
+	artists, err := fetchArtists()
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		log.Println(err)
+		return
+	}
+
+	if r.Method == http.MethodGet {
+		tmpl, err := template.ParseFiles("templates/index.html")
+		if err != nil {
+			log.Println("Template 1 parsing error:", err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		// buffer is written to memory
+
+		// buf := &bytes.Buffer{}
+
+		err = tmpl.Execute(w, artists)
+		if err != nil {
+			if err != http.ErrHandlerTimeout {
+				log.Println("Template 1 execution error: ", err)
+			}
+		}
+		// after all data is acumulated in buffer, it feed into w
+		// _, err = buf.WriteTo(w)
+		// if err != nil {
+		// 	log.Println("Error writing response: ", err)
+		// }
+	}
+}
+
+func artistHandler(w http.ResponseWriter, r *http.Request) {
+	// println("jik")
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	id := r.FormValue("id")
+
+	// println(id)
+
+	data, err := fetchDatesAndConcerts(id)
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		log.Println(err)
+		return
+	}
+
+	// shouldn't call http.ERror() after tmpl.Execution as headers
+	// have already been written
+
+	// fetch artists details
+	tmpl, err := template.ParseFiles("templates/artistPage.html")
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		log.Println("Template 2 parsing error: ", err)
+		return
+
+	}
+	err = tmpl.Execute(w, data)
+	if err != nil {
+		log.Println("Template 2 execution error: ", err)
+		return
+	}
+}
 
 func main() {
-	// http.HandleFunc("/", handler)
+	http.HandleFunc("/", handler)
+	http.HandleFunc("/artist", artistHandler)
+	// serve the static files
+	fs := http.FileServer(http.Dir("static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	// staticDir := http.Dir("static")
-	// http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(staticDir)))
-
-	// log.Print("Starting server at http://localhost:8080")
-	// log.Fatal(http.ListenAndServe(":8080", nil))
-
-	fetchDatesAndConcerts("https://groupietrackers.herokuapp.com/api/relation")
-
-
-	artists, err := fetchArtists("https://groupietrackers.herokuapp.com/api/artist")
-	if err != nil {
-		println(err)
-		return
-	}
-
-	fmt.Printf("%+v\n", artists)
+	log.Print("Starting server at http://localhost:8081")
+	log.Fatal(http.ListenAndServe(":8081", nil))
 }
+
+// fetchDatesAndConcerts("https://groupietrackers.herokuapp.com/api/relation")
+
+// artists, err := fetchArtists("https://groupietrackers.herokuapp.com/api/artist")
+// if err != nil {
+// 	println(err)
+// 	return
+// }
+
+// fmt.Printf("%+v\n", artists)

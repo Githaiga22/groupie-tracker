@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/page.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>{{.Name}}</h1> <!--link {{.name}}-->
+        <div class="album-section">
+            <div class="album-image">
+                <img src="/static/albumcover.jpg" alt="" width="400" height="400"> <!--link {{.image}}-->
+                <h2>First Album released on Sept 2013</h2> <!-- first album date-->
+            </div>
+            <div class="band-info">
+                <h2>Members</h2>
+                <ul>
+                    <li>Queen</li>
+                    <li>Mike Johnson - Drums</li>
+                <li>Sarah Williams - Keyboard, Synth</li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="concerts">
+            <h2>Tour Dates</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range $key,$value := .}}
+                    <tr>
+                        <td>{{$key}}</td> <!--Concert dates-->
+                        <td>
+                            <ul>
+                                {{range $item := $value}}
+                                <li>{{$item}}</li>
+                                {{end}}
+                            </ul>
+                        </td> <!--Concert places-->
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+
+        </div>
+        
+        
+
+    </div>
+
+</body>
+</html>
