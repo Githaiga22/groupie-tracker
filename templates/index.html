@@ -24,10 +24,6 @@
                         <!-- Unique form ID based on artist's ID--> 
                         <form  id="artistForm{{.Id}}" action="/artist" method="POST" >
                             <input type="hidden" id="idField" name="id" value="{{.Id}}">
-                            <!-- <input type="hidden" id="imageField" name="image" value="{{.Image}}">
-                            <input type="hidden" id="membersField" name="members" value="{{.Members}}">
-                            <input type="hidden" id="albumField" name="album" value="{{.FirstAlbum}}">
-                            <input type="hidden" id="creationDateField" name="creationDate" value="{{.CreationDate}}"> -->
                         </form>
                         <!--tag doesn't redirect to another page-->
                         <a href="javascript:void(0);" onclick="submitForm('{{.Id}}')">

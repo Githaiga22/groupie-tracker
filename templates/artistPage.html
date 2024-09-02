@@ -8,19 +8,18 @@
 <body>
 
     <div class="container">
-        <h1>{{.Name}}</h1> <!--link {{.name}}-->
+        <h1>{{.Name}}</h1> 
         <div class="album-section">
             <div class="album-image">
-                <img src="/static/albumcover.jpg" alt="" width="400" height="400"> <!--link {{.image}}-->
-                <h2>First Album released on Sept 2013</h2> <!-- first album date-->
+                <img src="{{.Image}}" alt="{{.Name}}" width="400" height="400"> 
+                <h2>First Album released on {{.FirstAlbum}} est. {{.CreationDate}}</h2> <!-- first album date-->
             </div>
             <div class="band-info">
                 <h2>Members</h2>
-                <ul>
-                    <li>Queen</li>
-                    <li>Mike Johnson - Drums</li>
-                <li>Sarah Williams - Keyboard, Synth</li>
-                </ul>
+                <p class="members">{{range .Members}}
+                   <ul>{{.}}</ul> 
+                    {{end}}
+                </p>
             </div>
 
         </div>
@@ -34,13 +33,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{ range $key,$value := .}}
+                    {{ range $key,$value := .DateAndLocation}}
                     <tr>
                         <td>{{$key}}</td> <!--Concert dates-->
                         <td>
                             <ul>
                                 {{range $item := $value}}
-                                <li>{{$item}}</li>
+                                <li>. {{$item}}</li>
                                 {{end}}
                             </ul>
                         </td> <!--Concert places-->
