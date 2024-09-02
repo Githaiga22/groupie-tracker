@@ -9,7 +9,8 @@ import (
 	"strconv"
 	"text/template"
 )
-
+// global variable to store artists data
+var AllArtists []Artist
 type Artist struct {
 	Id           int      `json:"id"`
 	Name         string   `json:"name"`
@@ -53,7 +54,15 @@ type Date struct {
 	Dates []string `json:"dates"`
 }
 
-//
+type Data struct {
+	Name         string   
+	Image        string   
+	Members      []string 
+	CreationDate int      
+	FirstAlbum   string   
+	DateAndLocation DatesLocations
+
+}
 
 func fetchArtists() ([]Artist, error) {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
@@ -66,8 +75,8 @@ func fetchArtists() ([]Artist, error) {
 	if err := json.NewDecoder(resp.Body).Decode(&artists); err != nil {
 		return nil, err
 	}
-
-	return artists[:12], nil
+	AllArtists = artists
+	return artists, nil
 }
 
 func fetchDatesAndConcerts(id string) (DatesLocations, error) {
@@ -98,6 +107,8 @@ func fetchDatesAndConcerts(id string) (DatesLocations, error) {
 		fmt.Println("Error unmarshalling JSON:", err)
 		return nil, err
 	}
+
+	
 
 	var datesLocations DatesLocations
 
@@ -133,26 +144,17 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// buffer is written to memory
-
-		// buf := &bytes.Buffer{}
-
 		err = tmpl.Execute(w, artists)
 		if err != nil {
 			if err != http.ErrHandlerTimeout {
 				log.Println("Template 1 execution error: ", err)
 			}
 		}
-		// after all data is acumulated in buffer, it feed into w
-		// _, err = buf.WriteTo(w)
-		// if err != nil {
-		// 	log.Println("Error writing response: ", err)
-		// }
 	}
 }
 
 func artistHandler(w http.ResponseWriter, r *http.Request) {
-	// println("jik")
+
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
@@ -160,17 +162,29 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 
 	id := r.FormValue("id")
 
-	// println(id)
-
-	data, err := fetchDatesAndConcerts(id)
+	datesAndConcerts, err := fetchDatesAndConcerts(id)
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		log.Println(err)
 		return
 	}
 
-	// shouldn't call http.ERror() after tmpl.Execution as headers
-	// have already been written
+	// println(id)
+	idNum,_ := strconv.Atoi(id) 
+	idNum -= 1
+	// println(idNum)
+	Data := Data{
+		Name: AllArtists[idNum].Name,
+		Members: AllArtists[idNum].Members,
+		DateAndLocation: datesAndConcerts,
+		Image: AllArtists[idNum].Image,
+		CreationDate: AllArtists[idNum].CreationDate,
+		FirstAlbum: AllArtists[idNum].FirstAlbum,
+	}
+	
+
+	// println(Data.CreationDate)
+	
 
 	// fetch artists details
 	tmpl, err := template.ParseFiles("templates/artistPage.html")
@@ -180,7 +194,7 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 		return
 
 	}
-	err = tmpl.Execute(w, data)
+	err = tmpl.Execute(w, Data)
 	if err != nil {
 		log.Println("Template 2 execution error: ", err)
 		return
