@@ -12,14 +12,10 @@ body {
     height: auto;
     border-radius: 10px;
 }
-.album-image img:hover {
+ .album-image img:hover {
     transform: scale(1.04); /** click on image it expands**/
-}
-.band-info {
-    flex: 0 0 45%;
-    padding-left: 20px;
+} 
 
-}
 .concerts{
     margin-top: 30px ;
 }
