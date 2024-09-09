@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/page.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>{{.Name}}</h1> 
+        <div class="album-section">
+            <div class="album-image">
+                <img src="{{.Image}}" alt="{{.Name}}" width="400" height="400"> 
+                <h2>First Album released on {{.FirstAlbum}} est. {{.CreationDate}}</h2> <!-- first album date-->
+            </div>
+            <div class="band-info">
+                <h2>Members</h2>
+                <p class="members">{{range .Members}}
+                   <ul>{{.}}</ul> 
+                    {{end}}
+                </p>
+            </div>
+
+        </div>
+        <div class="concerts">
+            <h2>Tour Dates</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>Dates</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range $key,$value := .DateAndLocation}}
+                    <tr>
+                        <td>{{$key}}</td> <!--Concert dates-->
+                        <td>
+                            <ul>
+                                {{range $item := $value}}
+                                <li>. {{$item}}</li>
+                                {{end}}
+                            </ul>
+                        </td> <!--Concert places-->
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+
+        </div>
+        
+        
+
+    </div>
+
+</body>
+</html>
