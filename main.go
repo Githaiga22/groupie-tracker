@@ -124,14 +124,19 @@ func fetchDatesAndConcerts(id string) (DatesLocations, error) {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		notFoundHandler(w)
+		return
+	}
+
 	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		wrongMethodHandler(w)
 		return
 	}
 
 	artists, err := fetchArtists()
 	if err != nil {
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		InternalServerHandler(w)
 		log.Println(err)
 		return
 	}
@@ -155,8 +160,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func artistHandler(w http.ResponseWriter, r *http.Request) {
 
+	if r.URL.Path != "/artist" {
+		notFoundHandler(w)
+		return
+	}
+
 	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		wrongMethodHandler(w)
 		return
 	}
 
@@ -164,7 +174,7 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 
 	datesAndConcerts, err := fetchDatesAndConcerts(id)
 	if err != nil {
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		InternalServerHandler(w)
 		log.Println(err)
 		return
 	}
@@ -189,7 +199,7 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 	// fetch artists details
 	tmpl, err := template.ParseFiles("templates/artistPage.html")
 	if err != nil {
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		InternalServerHandler(w)
 		log.Println("Template 2 parsing error: ", err)
 		return
 
@@ -213,14 +223,20 @@ func renderErrorPage(w http.ResponseWriter, statusCode int, title, message strin
 		Message: message,
 	}
 	if err := tmpl.Execute(w, data); err != nil {
-		http.Error(w, "Failed to render error page", http.StatusInternalServerError)
+		InternalServerHandler(w)
 	}
 }
 
 // NotFoundHandler to handle 404 errors
-// func notFoundHandler(w http.ResponseWriter, r *http.Request) {
-// 	renderErrorPage(w, http.StatusNotFound, "404 Not Found", "The page you are looking for does not exist.")
-// }
+func notFoundHandler(w http.ResponseWriter) {
+	renderErrorPage(w, http.StatusNotFound, "404 Not Found", "The page you are looking for does not exist.")
+}
+func wrongMethodHandler(w http.ResponseWriter) {
+	renderErrorPage(w, http.StatusMethodNotAllowed, " Method Not Allowed", "Try  the home page")
+}
+func InternalServerHandler(w http.ResponseWriter) {
+	renderErrorPage(w, http.StatusInternalServerError, " Internal Server Error", "Completely our mistake.")
+}
 
 func main() {
 	http.HandleFunc("/", handler)
