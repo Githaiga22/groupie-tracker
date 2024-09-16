@@ -3,24 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
     <title>Artists</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h1>Artists</h1>
-    <ul>
-        {{range .}}
-            <li>
-                <div class="card">
-                    <div class="container">
-                        <a href="/artist/{{.ID}}"> <!-- Link to the artist's detail page -->
-                            <img src="{{.Image}}" alt="{{.Name}}"> <!-- Artist image -->
-                            <h2 class="artist-name">{{.Name}}</h2> <!-- Artist name -->
-                        </a>
-                    </div>
-                </div>
-            </li>
+    <h1>Locations</h1>
+    <!-- <ul>
+        <li></li> -->
+        <div>
+        <p class="locations">{{range .Locations}}
+        <li>{{.}}</li>
         {{end}}
-    </ul>
+    </p>
+    </div>
+    <!-- </ul> -->
 </body>
 </html>

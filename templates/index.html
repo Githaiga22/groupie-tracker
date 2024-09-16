@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
     <title>Groupie Trackers</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
@@ -21,13 +22,13 @@
                     <form id="artistForm{{.Id}}" action="/artist" method="POST">
                         <input type="hidden" id="idField" name="id" value="{{.Id}}">
                     </form>
-                    <a href="javascript:void(0);" onclick="submitForm('{{.Id}}')">
+                    <a href="javascript:void(0);" onclick="submitForm('{{.Id}}','/artist')">
                         <img src="{{.Image}}" alt="{{.Name}}"> <!-- Artist image -->
                     </a>
                     <h2 class="artist-name">{{.Name}}</h2> <!-- Artist name hidden by default -->
                     <div class="event-details">
-                        <a href="/location" class="location">Location</a>
-                        <a href="/dates" class="date">Dates</a>
+                        <a href="/locations?id={{.Id}}" class="location" >Location</a>
+                        <a href="/dates?id={{.Id}}" class="date">Dates</a>
                     </div>
                 </div>
             </div>
@@ -38,43 +39,13 @@
     </ul>
 
     <script>
-        function submitForm(id) {
+        function submitForm(id,endpoint) {
             // Get form usinf the unique id
             var form = document.getElementById('artistForm'+id);
             if (form) {
                 form.submit();
             }
-        }
-
-        // Search functionality
-        // ensure html loads up first before running js
-        document.addEventListener('DOMContentLoaded', function(){
-            var searchInput = document.querySelector('.search-input');
-            var searchButton = document.querySelector('.search-button');
-            var artistCards = document.querySelectorAll('.card');
-
-            function performSearch(){
-                var searchTerm = searchInput.value.toLowerCase(); // name converted to lower
-                artistCards.forEach(function(card){ // loop through cards
-                    var artistName = card.querySelector('.artist-name').textContent.toLowerCase();
-                    if (artistName.includes(searchTerm)){
-                        card.style.display = ''; // display
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            }
-            // set up event listener as user is typing
-            searchButton.addEventListener('input', performSearch)
-            searchInput.addEventListener('keyup', function(event){
-            if (event.key === 'Enter'){
-                performSearch();
-            }
-            });
-
-        });
-        
-
+        }    
     </script>
 </body>
 </html>
