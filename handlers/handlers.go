@@ -211,7 +211,6 @@ func renderErrorPage(w http.ResponseWriter, statusCode int, title, message strin
 	}
 }
 
-// NotFoundHandler to handle 404 errors
 func notFoundHandler(w http.ResponseWriter) {
 	renderErrorPage(w, http.StatusNotFound, "404 Not Found", "The page you are looking for does not exist.")
 }

@@ -7,8 +7,6 @@ import (
 	"tracker/handlers"
 )
 
-// Function to render error pages
-
 func main() {
 	http.HandleFunc("/", handlers.HomepageHandler)
 	http.HandleFunc("/artist", handlers.ArtistHandler)
@@ -22,12 +20,3 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8081", nil))
 }
 
-// fetchDatesAndConcerts("https://groupietrackers.herokuapp.com/api/relation")
-
-// artists, err := fetchArtists("https://groupietrackers.herokuapp.com/api/artist")
-// if err != nil {
-// 	println(err)
-// 	return
-// }
-
-// fmt.Printf("%+v\n", artists)
