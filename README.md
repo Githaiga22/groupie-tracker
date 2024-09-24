@@ -67,17 +67,13 @@ git push origin feature/new-feature
 git request-pull origin feature/new-feature
 ```
 ### License:
-Groupie Tracker is licensed under the MIT License. See LICENSE for details.
+Groupie Tracker is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ### Acknowledgments:
 [w3Schools](https://www.w3schools.com)
 
 ### Author
-- Githaiga22
-- fred gitonga
-- Rodney Otieno
+- [Allan Kamau](https://github.com/Githaiga22)
+- [Fred Gitonga](https://github.com/FredMunene)
+- [Rodney Otieno](https://github.com/rodneyo1)
 
-### Github Profile
-- Github profile: [Githaiga22](https://github.com/Githaiga22)
--  Github profile: [fred gitonga](https://github.com/FredMunene)
--  Github profile: [rodney otieno](https://github.com/rodneyo1)
