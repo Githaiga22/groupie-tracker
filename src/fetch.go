@@ -93,7 +93,12 @@ func FetchDates(id string) (helper.Date, error) {
 		}
 	}
 
-	// fmt.Printf("%+v\n", dates)
+	for i, date := range dates.Dates{
+		if date[0] == '*'{
+			dates.Dates[i] = date[1:]
+		}
+	}
+
 	return dates, nil
 }
 

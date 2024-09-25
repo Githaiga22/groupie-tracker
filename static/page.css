@@ -34,3 +34,26 @@ table {
     width: 90%; 
 
 }
+.concerts {
+    width: 100%; /* Adjust width as necessary */
+    text-align: center; /* Center align the title */
+}
+
+h2 {
+    margin-bottom: 20px; /* Space between title and table */
+}
+
+table {
+    width: 100%; /* Make the table full-width */
+    border-collapse: collapse; /* Optional: Remove gaps between table cells */
+}
+
+th, td {
+    border: 1px solid #ddd; /* Add borders to table cells */
+    padding: 8px; /* Add padding for better spacing */
+}
+
+th {
+    background-color: #f2f2f2; /* Background color for header cells */
+}
+

@@ -12,5 +12,14 @@
         <h1>{{.Title}}</h1>
         <p>{{.Message}}</p>
     </div>
+     <!--Add back-button-->
+     <div class ="back-button">
+        <button onclick="goBack()">Go Back</button>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>

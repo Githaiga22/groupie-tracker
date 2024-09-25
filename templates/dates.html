@@ -9,11 +9,20 @@
 </head>
 <body>
     <div class="Dates">
-        <h1>{{.Id}}</h1>
+        <h1>Dates</h1>
         <p>{{range .Dates}}
             <li>{{.}}</li>
             {{end}}
         </p>
     </div>
+     <!--Add back-button-->
+     <div class ="back-button">
+        <button onclick="goBack()">Go Back</button>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>

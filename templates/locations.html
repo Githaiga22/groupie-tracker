@@ -9,14 +9,20 @@
 </head>
 <body>
     <h1>Locations</h1>
-    <!-- <ul>
-        <li></li> -->
         <div>
         <p class="locations">{{range .Locations}}
         <li>{{.}}</li>
         {{end}}
     </p>
     </div>
-    <!-- </ul> -->
+    <!--Add back-button-->
+    <div class ="back-button">
+        <button onclick="goBack()">Go Back</button>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>
