@@ -44,8 +44,6 @@ func DateHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	println("here")
-
 	// Check if the handler is running in "test mode" to skip template rendering
 	if os.Getenv("TEST_MODE") == "true" {
 		// If we're in test mode, return a simple mock response instead of rendering a template
@@ -59,7 +57,6 @@ func DateHandler(w http.ResponseWriter, r *http.Request) {
 		return
 
 	}
-	println("here too")
 	err = tmpl.Execute(w, dates)
 	if err != nil {
 		log.Println("Template 2 execution error: ", err)

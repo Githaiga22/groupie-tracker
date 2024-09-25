@@ -93,7 +93,6 @@ func FetchDates(id string) (helper.Date, error) {
 		}
 	}
 
-	// fmt.Printf("%+v\n", dates)
 	return dates, nil
 }
 
