@@ -123,12 +123,12 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if r.Method != http.MethodPost {
+	if r.Method != http.MethodGet {
 		wrongMethodHandler(w)
 		return
-	}
+	}  
 
-	id := r.FormValue("id")
+	id := r.URL.Query().Get("id")
 
 	datesAndConcerts, err := src.FetchDatesAndConcerts(id)
 	if err != nil {
@@ -140,6 +140,11 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	idNum, _ := strconv.Atoi(id)
 	idNum -= 1
 
+	if idNum <= 0 || idNum > 52 {
+		badRequestHandler(w)
+		return
+	}
+
 	if len(AllArtistInfo) == 0 {
 		r.URL.Path = "/"
 		r.Method = http.MethodGet
@@ -149,6 +154,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	AllArtistInfo[idNum].DateAndLocation = datesAndConcerts
+
 
 	Data := AllArtistInfo[idNum]
 
