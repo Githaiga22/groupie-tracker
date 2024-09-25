@@ -1,12 +1,32 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"os"
+	"strconv"
 	"testing"
+
+	"tracker/helpers"
 )
 
 func TestDateHandler(t *testing.T) {
+	os.Setenv("TEST_MODE", "true")
+	defer os.Unsetenv("TEST_MODE")
+	// Mock FetchDates function for testing
+	originalFetchDateFunc := fetchDatesFunc
+	defer func() { fetchDatesFunc = originalFetchDateFunc }()
+
+	fetchDatesFunc = func(id string) (helpers.Date, error) {
+		idNum, _ := strconv.Atoi(id)
+		if idNum == 1 {
+			return helpers.Date{
+				Id: 1, Dates: []string{"2023-01-01"},
+			}, nil
+		}
+		return helpers.Date{}, fmt.Errorf("error fetching dates")
+	}
 	tests := []struct {
 		name               string
 		method             string
@@ -21,39 +41,39 @@ func TestDateHandler(t *testing.T) {
 			queryParams:        "?id=1",
 			expectedStatusCode: http.StatusOK,
 		},
-		// {
-		// 	name:               "Invalid Path",
-		// 	method:             http.MethodGet,
-		// 	urlPath:            "/invalid",
-		// 	expectedStatusCode: http.StatusNotFound,
-		// },
-		// {
-		// 	name:               "Invalid Method",
-		// 	method:             http.MethodPost,
-		// 	urlPath:            "/dates",
-		// 	expectedStatusCode: http.StatusMethodNotAllowed,
-		// },
-		// {
-		// 	name:               "Invalid ID - Out of Range",
-		// 	method:             http.MethodGet,
-		// 	urlPath:            "/dates",
-		// 	queryParams:        "?id=100",
-		// 	expectedStatusCode: http.StatusBadRequest,
-		// },
-		// {
-		// 	name:               "Invalid ID - Non-numeric",
-		// 	method:             http.MethodGet,
-		// 	urlPath:            "/dates",
-		// 	queryParams:        "?id=abc",
-		// 	expectedStatusCode: http.StatusBadRequest,
-		// },
-		// {
-		// 	name:               "Internal Server Error",
-		// 	method:             http.MethodGet,
-		// 	urlPath:            "/dates",
-		// 	queryParams:        "?id=2", // Adjust based on your FetchDates simulation
-		// 	expectedStatusCode: http.StatusInternalServerError,
-		// },
+		{
+			name:               "Invalid Path",
+			method:             http.MethodGet,
+			urlPath:            "/invalid",
+			expectedStatusCode: http.StatusNotFound,
+		},
+		{
+			name:               "Invalid Method",
+			method:             http.MethodPost,
+			urlPath:            "/dates",
+			expectedStatusCode: http.StatusMethodNotAllowed,
+		},
+		{
+			name:               "Invalid ID - Out of Range",
+			method:             http.MethodGet,
+			urlPath:            "/dates",
+			queryParams:        "?id=100",
+			expectedStatusCode: http.StatusBadRequest,
+		},
+		{
+			name:               "Invalid ID - Non-numeric",
+			method:             http.MethodGet,
+			urlPath:            "/dates",
+			queryParams:        "?id=abc",
+			expectedStatusCode: http.StatusBadRequest,
+		},
+		{
+			name:               "Internal Server Error",
+			method:             http.MethodGet,
+			urlPath:            "/dates",
+			queryParams:        "?id=2", 
+			expectedStatusCode: http.StatusInternalServerError,
+		},
 	}
 
 	for _, tt := range tests {
@@ -62,10 +82,8 @@ func TestDateHandler(t *testing.T) {
 			req := httptest.NewRequest(tt.method, tt.urlPath+tt.queryParams, nil)
 			w := httptest.NewRecorder()
 
-			// Call the handler
 			DateHandler(w, req)
 
-			// Check the status code
 			res := w.Result()
 			if res.StatusCode != tt.expectedStatusCode {
 				t.Errorf("expected status code %d, got %d", tt.expectedStatusCode, res.StatusCode)
