@@ -6,20 +6,20 @@
 
 ### Features:
 
-- Artist search functionality
+- Artist search functionality (future feature)
 - Artist profile pages with discography and biography
 - Similar artist recommendations
 - Responsive design for optimal user experience
-### Technologies Used:
 
+### Technologies Used:
 - Frontend: HTML, CSS, JavaScript
 - Backend: Go (Golang)
 - Template Engine: Go Templates
 
 ### Getting Started:
 #### Prerequisites
-- Go 1.17 or higher
-- A Go IDE or text editor of your choice
+- Go 1.22.2 or higher
+
 
 ### Installation
 1. Clone the repository: 
@@ -30,17 +30,12 @@ git clone https://learn.zone01kisumu.ke/git/allkamau/groupie-tracker.git
 ```bash
  cd groupie-tracker
  ```
-3. Install the required dependencies:
-```bash
- go get
- ```
 4. Run the application: 
 ```bash
 go run main.go
 ```
 ### How to Run:
 1. Open a web browser and navigate to http://localhost:8080
-2. Search for an artist using the search bar
 3. Explore the artist's profile page, discography, and similar artists
 
 ### Contributing:
