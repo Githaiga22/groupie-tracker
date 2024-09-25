@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	AllArtistInfo  []helper.Data
-	fetchDatesFunc = src.FetchDates
+	AllArtistInfo      []helper.Data
+	fetchDatesFunc     = src.FetchDates
 	fetchLocationsFunc = src.FetchLocations
 )
 
@@ -198,7 +198,7 @@ func HomepageHandler(w http.ResponseWriter, r *http.Request) {
 			AllArtistInfo = append(AllArtistInfo, tempdate)
 		}
 	}
-	
+
 	if r.Method == http.MethodGet {
 		tmpl, err := template.ParseFiles("templates/index.html")
 		if err != nil {

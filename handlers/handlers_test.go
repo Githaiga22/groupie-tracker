@@ -71,7 +71,7 @@ func TestDateHandler(t *testing.T) {
 			name:               "Internal Server Error",
 			method:             http.MethodGet,
 			urlPath:            "/dates",
-			queryParams:        "?id=2", 
+			queryParams:        "?id=2",
 			expectedStatusCode: http.StatusInternalServerError,
 		},
 	}
@@ -153,7 +153,7 @@ func TestLocationHandler(t *testing.T) {
 			name:               "Internal Server Error",
 			method:             http.MethodGet,
 			urlPath:            "/locations",
-			queryParams:        "?id=2", 
+			queryParams:        "?id=2",
 			expectedStatusCode: http.StatusInternalServerError,
 		},
 	}
@@ -173,4 +173,3 @@ func TestLocationHandler(t *testing.T) {
 		})
 	}
 }
-

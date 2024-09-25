@@ -14,20 +14,20 @@ type Artist struct {
 	Relations    string   `json:"relation"`
 }
 
-////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////
 // locations and dates api
 type RootsRelation struct {
 	Relation []DatesLocation `json:"index"`
 }
 
 type DatesLocation struct {
-	Id int            `json:"id"`
-	Places   DatesLocations `json:"datesLocations"`
+	Id     int            `json:"id"`
+	Places DatesLocations `json:"datesLocations"`
 }
 
 type DatesLocations map[string][]string
 
-////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////
 // dates api
 type RootDates struct {
 	Tdates []Date `json:"index"`
@@ -37,27 +37,27 @@ type Date struct {
 	Dates []string `json:"dates"`
 }
 
-////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////
 // locations api
 type AllLocations struct {
-	Location []Location `json:"index"` // Match index key in the JSON response 
+	Location []Location `json:"index"` // Match index key in the JSON response
 }
 type Location struct {
-	ArtistId int `json:"id"`
+	ArtistId  int      `json:"id"`
 	Locations []string `json:"locations"`
-	Date string `json:"dates"`
-
+	Date      string   `json:"dates"`
 }
+
 ////////////////////////////////////////////////////////////
 
 type Data struct {
-	Name         string 
-	Id 	  		int
-	Image        string   
-	Members      []string 
-	CreationDate int      
-	FirstAlbum   string   
+	Name            string
+	Id              int
+	Image           string
+	Members         []string
+	CreationDate    int
+	FirstAlbum      string
 	DateAndLocation DatesLocations
-	Dates []Date
-	Locations []Location
+	Dates           []Date
+	Locations       []Location
 }
