@@ -161,14 +161,12 @@ li {
 }
 
 .event-details {
-    position: absolute; /* Position absolutely within the card */
-    top: 50px; /* Adjust this value to position below the artist name */
-    left: 10px; /* Align to the left */
+    margin-top: 10px;
     background-color: rgba(255, 255, 255, 0.8); /* Background for the details */
     padding: 5px 10px; /* Padding around the details */
     border-radius: 4px; /* Rounded corners */
     font-size: 14px; /* Font size for the links */
-    display: none; /* Hidden by default */
+    display: block; /* ensure it is available */
 }
 
 .card:hover .event-details {

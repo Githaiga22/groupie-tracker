@@ -106,7 +106,7 @@
         }
 
         .artist-name {
-            display: none; /* Hide the artist name by default */
+            display: block; /* Hide the artist name by default */
             font-size: 1.2em; /* Font size for the artist name */
             color: #007bff; /* Blue color for artist names */
             margin-top: 10px; /* Space above the artist name */
@@ -135,19 +135,19 @@
                     <a href="/artist?id={{.Id}}">
                         <img src="{{.Image}}" alt="{{.Name}}"> <!-- Artist image -->
                     </a>
-                    <h2 class="artist-name">{{.Name}}  <!-- Artist name hidden by default -->
+                    <h2 class="artist-name">{{.Name}}</h2> <!-- Close the artist name here -->
+                    
+                    <!-- Move event details outside the h2 tag -->
                     <div class="event-details">
-                        <a href="/locations?id={{.Id}}" class="location" >Location</a>
+                        <a href="/locations?id={{.Id}}" class="location">Location</a>
                         <a href="/dates?id={{.Id}}" class="date">Dates</a>
                     </div>
-                </h2>
                 </div>
             </div>
         </li>
-        
-        
         {{end}}
     </ul>
+    
 
     <script>
         function submitForm(id,endpoint) {
