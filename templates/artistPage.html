@@ -37,12 +37,12 @@
                 </thead>
                 <tbody>
                     {{ range $key,$value := .DateAndLocation}}
-                    <tr>
-                        <td>{{$key}}</td>
-                        <td>
+                    <tr >
+                        <td class="places" style="text-transform: capitalize;">{{$key}}</td>
+                        <td class="places" style="text-transform: capitalize;">
                             <ul>
                                 {{range $item := $value}}
-                                <li>. {{$item}}</li>
+                                <li style="list-style-type: none;">. {{$item}}</li>
                                 {{end}}
                             </ul>
                         </td>
@@ -54,7 +54,14 @@
 
         <!-- Add Back Button -->
         <div class="back-button">
-            <button onclick="goBack()">Go Back</button>
+            <button onclick="goBack()" style="
+                background-color: white;
+                color: black;
+                margin: 1em;
+                border-radius: 3px;
+                padding: 10px;
+                border: 2px solid rgba(167, 14, 238, 0.8); /* Green */
+              ">Back</button>
         </div>
     </div>
 

@@ -11,13 +11,20 @@
     <div class="Dates">
         <h1>Dates</h1>
         <p>{{range .Dates}}
-            <li>{{.}}</li>
+            <li class="li">{{.}}</li>
             {{end}}
         </p>
     </div>
      <!--Add back-button-->
      <div class ="back-button">
-        <button onclick="goBack()">Go Back</button>
+        <button onclick="goBack()" style="
+        background-color: white;
+        color: black;
+        margin: 1em;
+        border-radius: 3px;
+        padding: 10px;
+        border: 2px solid rgba(167, 14, 238, 0.8); /* Green */
+      ">Back</button>
     </div>
     <script>
         function goBack() {
