@@ -138,12 +138,13 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	idNum, _ := strconv.Atoi(id)
-	idNum -= 1
-
 	if idNum <= 0 || idNum > 52 {
 		badRequestHandler(w)
 		return
 	}
+	idNum -= 1
+
+
 
 	if len(AllArtistInfo) == 0 {
 		r.URL.Path = "/"
@@ -209,13 +210,14 @@ func HomepageHandler(w http.ResponseWriter, r *http.Request) {
 		tmpl, err := template.ParseFiles("templates/index.html")
 		if err != nil {
 			log.Println("Template 1 parsing error:", err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			InternalServerHandler(w)
 			return
 		}
 
 		err = tmpl.Execute(w, AllArtistInfo)
 		if err != nil {
 			if err != http.ErrHandlerTimeout {
+				InternalServerHandler(w)
 				log.Println("Template 1 execution error: ", err)
 			}
 		}
@@ -224,7 +226,13 @@ func HomepageHandler(w http.ResponseWriter, r *http.Request) {
 
 func renderErrorPage(w http.ResponseWriter, statusCode int, title, message string) {
 	w.WriteHeader(statusCode)
-	tmpl := template.Must(template.ParseFiles("templates/error.html"))
+	tmpl,err := template.ParseFiles("templates/error.html")
+	if err != nil{
+		log.Println("Error page parsing error:", err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+
+	}
 	data := struct {
 		Title   string
 		Message string
