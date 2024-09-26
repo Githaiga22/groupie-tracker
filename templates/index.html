@@ -25,12 +25,12 @@
                     <a href="javascript:void(0);" onclick="submitForm('{{.Id}}','/artist')">
                         <img src="{{.Image}}" alt="{{.Name}}"> <!-- Artist image -->
                     </a>
-                    <h2 class="artist-name">{{.Name}}  <!-- Artist name hidden by default -->
-                    <div class="event-details">
-                        <a href="/locations?id={{.Id}}" class="location" >Location</a>
-                        <a href="/dates?id={{.Id}}" class="date">Dates</a>
+                    <div class="event-details"></div>
+                    <h2 class="artist-name">{{.Name}}</h2> 
+                        <button class="artist-button"><a href="/locations?id={{.Id}}" class="location" >Locations</a></button>
+                        <button class="artist-button"><a href="/dates?id={{.Id}}" class="date">Dates</a></button>
                     </div>
-                </h2>
+                    
                 </div>
             </div>
         </li>

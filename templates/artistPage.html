@@ -14,10 +14,10 @@
         <div class="album-section">
             <div class="album-image">
                 <img src="{{.Image}}" alt="{{.Name}}" width="400" height="400"> 
-                <h2>First Album released on {{.FirstAlbum}} est. {{.CreationDate}}</h2>
+                <p><strong>{{.Name}} was established in {{.CreationDate}} .The first album released on {{.FirstAlbum}}</strong></p>
             </div>
             <div class="band-info">
-                <h2>Members</h2>
+                <h3>Members</h3>
                 <p class="members">
                     {{range .Members}}
                     <ul>{{.}}</ul> 
@@ -54,14 +54,18 @@
 
         <!-- Add Back Button -->
         <div class="back-button">
-            <button onclick="goBack()" style="
-                background-color: white;
-                color: black;
-                margin: 1em;
-                border-radius: 3px;
-                padding: 10px;
-                border: 2px solid rgba(167, 14, 238, 0.8); /* Green */
-              ">Back</button>
+            <button onclick="goBack()" style=" display: inline-block;
+            outline: 0;
+            border: none;
+            cursor: pointer;
+            font-weight: 400;
+            border-radius: 4px;
+            font-size: 20px;
+            height: 30px;
+            background-color: #e40ec70d;
+            color: #0e0e10;
+            margin :1em;
+            padding: 0 20px;">Back</button>
         </div>
     </div>
 

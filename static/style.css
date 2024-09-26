@@ -43,23 +43,13 @@ img {
     position: relative;
 }
 
-/* Members section initially hidden */
-.members {
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
-}
-
 /* Show members on hover without affecting layout */
 .card:hover .members {
     opacity: 1;
     max-height: 100px; /* Adjust this value based on content */
     color: #09a14e;
 }
-.card img {
-    transition: transform 0.3s ease-in-out;
-}
+
 
 .card:hover img {
     transform: scale(1.1);
@@ -189,4 +179,21 @@ li {
     text-transform: capitalize;
 }
 
-
+.artist-button{
+    display: inline-block;
+    outline: 0;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 4px;
+    font-size: 13px;
+    height: 30px;
+    background-color: #e40ec70d;/*>>Button color<<<*/
+    color: #0e0e10;
+    padding: 0 20px;
+    
+} a {
+    text-decoration: none;
+    color:inherit
+    
+}
