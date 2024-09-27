@@ -1,6 +1,6 @@
 /* Container for the grid */
 body{
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu;
+    font-family:Arial,SystemFont, Roboto, Ubuntu,system-ui, -apple-system, BlinkMac;
     background-color: whitesmoke;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
