@@ -7,7 +7,7 @@ body{
 }
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     padding: 0;
     list-style: none;
@@ -118,7 +118,7 @@ ul {
 }
 
 li {
-    list-style-type: none;
+    /*list-style-type: none;
     width: 22%; /* Set the width of each list item to 22% (4 per row with space) */
     padding: 10px; /* Add some padding around each list item */
     box-sizing: border-box; /* Include padding in the width calculation */
