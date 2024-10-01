@@ -131,14 +131,9 @@ li {
     overflow: hidden; /* Prevent overflow of content */
 }
 
-.card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
-    transform: translateY(-10px); /* Move the card up slightly on hover */
-}
-
 .container {
-    padding: 16px; /* Padding inside the card */
-    text-align: center; /* Center the text */
+    padding: 16px;
+    text-align: center; 
 }
 
 .artist-name {
