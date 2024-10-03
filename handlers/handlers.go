@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	AllArtistInfo  []helper.Data
-	fetchDatesFunc = src.FetchDates
+	AllArtistInfo      []helper.Data
+	fetchDatesFunc     = src.FetchDates
 	fetchLocationsFunc = src.FetchLocations
 )
 
@@ -123,12 +123,12 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if r.Method != http.MethodPost {
+	if r.Method != http.MethodGet {
 		wrongMethodHandler(w)
 		return
-	}
+	}  
 
-	id := r.FormValue("id")
+	id := r.URL.Query().Get("id")
 
 	datesAndConcerts, err := src.FetchDatesAndConcerts(id)
 	if err != nil {
@@ -138,7 +138,13 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	idNum, _ := strconv.Atoi(id)
+	if idNum <= 0 || idNum > 52 {
+		badRequestHandler(w)
+		return
+	}
 	idNum -= 1
+
+
 
 	if len(AllArtistInfo) == 0 {
 		r.URL.Path = "/"
@@ -149,6 +155,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	AllArtistInfo[idNum].DateAndLocation = datesAndConcerts
+
 
 	Data := AllArtistInfo[idNum]
 
@@ -198,18 +205,19 @@ func HomepageHandler(w http.ResponseWriter, r *http.Request) {
 			AllArtistInfo = append(AllArtistInfo, tempdate)
 		}
 	}
-	
+
 	if r.Method == http.MethodGet {
 		tmpl, err := template.ParseFiles("templates/index.html")
 		if err != nil {
 			log.Println("Template 1 parsing error:", err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			InternalServerHandler(w)
 			return
 		}
 
 		err = tmpl.Execute(w, AllArtistInfo)
 		if err != nil {
 			if err != http.ErrHandlerTimeout {
+				InternalServerHandler(w)
 				log.Println("Template 1 execution error: ", err)
 			}
 		}
@@ -218,7 +226,13 @@ func HomepageHandler(w http.ResponseWriter, r *http.Request) {
 
 func renderErrorPage(w http.ResponseWriter, statusCode int, title, message string) {
 	w.WriteHeader(statusCode)
-	tmpl := template.Must(template.ParseFiles("templates/error.html"))
+	tmpl,err := template.ParseFiles("templates/error.html")
+	if err != nil{
+		log.Println("Error page parsing error:", err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+
+	}
 	data := struct {
 		Title   string
 		Message string

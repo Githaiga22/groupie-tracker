@@ -3,7 +3,6 @@ body{
     font-family:Arial,SystemFont, Roboto, Ubuntu,system-ui, -apple-system, BlinkMac;
     background-color: whitesmoke;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 .grid-container {
     display: grid;
@@ -82,32 +81,6 @@ h1 {
     flex-grow: 1; /* Allow the heading to take available space */
 }
 
-.search-container {
-    display: flex; /* Use flexbox for search bar alignment */
-    align-items: center; /* Center items vertically */
-}
-
-.search-input {
-    padding: 5px; /* Padding inside the search input */
-    border: none; /* Remove border */
-    border-radius: 4px; /* Rounded corners */
-    font-size: 16px; /* Font size for the input */
-    width: 150px; /* Width of the search input */
-}
-
-.search-button {
-    padding: 0px px; /* Padding for the search button */
-    border: none; /* Remove border */
-    border-radius: px; /* Rounded corners */
-    background-color: #007bff; /* Button color */
-    color: white; /* Text color */
-    cursor: pointer; /* Pointer cursor on hover */
-    margin-left: px; /* Space between input and button */
-}
-
-.search-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
 
 ul {
     list-style-type: none; /* Remove bullet points */
@@ -148,14 +121,12 @@ li {
 }
 
 .event-details {
-    position: absolute; /* Position absolutely within the card */
-    top: 50px; /* Adjust this value to position below the artist name */
-    left: 10px; /* Align to the left */
+    margin-top: 10px;
     background-color: rgba(255, 255, 255, 0.8); /* Background for the details */
     padding: 5px 10px; /* Padding around the details */
     border-radius: 4px; /* Rounded corners */
     font-size: 14px; /* Font size for the links */
-    display: none; /* Hidden by default */
+    display: block; /* ensure it is available */
 }
 
 .card:hover .event-details {

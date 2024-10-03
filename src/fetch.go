@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"strconv"
+
 	helper "tracker/helpers"
 )
 
@@ -27,12 +28,12 @@ func FetchArtists() ([]helper.Artist, error) {
 
 func FetchLocations(id string) (helper.Location, error) {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
-	if err != nil  {
+	if err != nil {
 		fmt.Println("Error reading the response body:", err)
 		return helper.Location{}, err
 	}
 	defer resp.Body.Close()
-	
+
 	// Read the response body
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -48,10 +49,10 @@ func FetchLocations(id string) (helper.Location, error) {
 	}
 
 	Data.Locations = data.Location
-	var locations helper.Location	
+	var locations helper.Location
 
 	for _, Artistid := range data.Location {
-		idNum,_ := strconv.Atoi(id)	
+		idNum, _ := strconv.Atoi(id)
 		if Artistid.ArtistId == idNum {
 			locations = Artistid
 			break
@@ -67,7 +68,7 @@ func FetchDates(id string) (helper.Date, error) {
 		return helper.Date{}, err
 	}
 	defer resp.Body.Close()
-	
+
 	var data helper.RootDates
 	// Read the response body
 	body, err := io.ReadAll(resp.Body)
@@ -93,8 +94,8 @@ func FetchDates(id string) (helper.Date, error) {
 		}
 	}
 
-	for i, date := range dates.Dates{
-		if date[0] == '*'{
+	for i, date := range dates.Dates {
+		if date[0] == '*' {
 			dates.Dates[i] = date[1:]
 		}
 	}

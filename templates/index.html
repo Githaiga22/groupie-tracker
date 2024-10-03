@@ -19,10 +19,10 @@
         <li>
             <div class="card">
                 <div class="container">
-                    <form id="artistForm{{.Id}}" action="/artist" method="POST">
+                    <form id="artistForm{{.Id}}" action="/artist" method="GET">
                         <input type="hidden" id="idField" name="id" value="{{.Id}}">
                     </form>
-                    <a href="javascript:void(0);" onclick="submitForm('{{.Id}}','/artist')">
+                    <a href="/artist?id={{.Id}}">
                         <img src="{{.Image}}" alt="{{.Name}}"> <!-- Artist image -->
                     </a>
                     <div class="event-details"></div>
@@ -34,10 +34,9 @@
                 </div>
             </div>
         </li>
-        
-        
         {{end}}
     </ul>
+    
 
     <script>
         function submitForm(id,endpoint) {
