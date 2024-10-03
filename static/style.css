@@ -1,12 +1,12 @@
 /* Container for the grid */
 body{
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu;
+    font-family:Arial,SystemFont, Roboto, Ubuntu,system-ui, -apple-system, BlinkMac;
     background-color: whitesmoke;
     -webkit-font-smoothing: antialiased;
 }
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     padding: 0;
     list-style: none;
@@ -29,6 +29,7 @@ body{
     z-index: 1; /* Bring the hovered card in front of others */
 }
 
+
 /* Image styling */
 img {
     border-radius: 5px 5px 0 0;
@@ -41,23 +42,13 @@ img {
     position: relative;
 }
 
-/* Members section initially hidden */
-.members {
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
-}
-
 /* Show members on hover without affecting layout */
 .card:hover .members {
     opacity: 1;
     max-height: 100px; /* Adjust this value based on content */
     color: #09a14e;
 }
-.card img {
-    transition: transform 0.3s ease-in-out;
-}
+
 
 .card:hover img {
     transform: scale(1.1);
@@ -100,6 +91,7 @@ ul {
 }
 
 li {
+    /*list-style-type: none;
     width: 22%; /* Set the width of each list item to 22% (4 per row with space) */
     padding: 10px; /* Add some padding around each list item */
     box-sizing: border-box; /* Include padding in the width calculation */
@@ -112,20 +104,15 @@ li {
     overflow: hidden; /* Prevent overflow of content */
 }
 
-.card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
-    transform: translateY(-10px); /* Move the card up slightly on hover */
-}
-
 .container {
-    padding: 16px; /* Padding inside the card */
-    text-align: center; /* Center the text */
+    padding: 16px;
+    text-align: center; 
 }
 
 .artist-name {
-    display: none; /* Hide the artist name by default */
+    /*display: none;  Hide the artist name by default */
     font-size: 1.2em; /* Font size for the artist name */
-    color: #007bff; /* Blue color for artist names */
+    color: #0f0f0f; /* Blue color for artist names */
     margin-top: 10px; /* Space above the artist name */
 }
 
@@ -154,4 +141,25 @@ li {
 .event-details a:hover {
     text-decoration: underline; /* Underline on hover */
 }
+.places {
+    text-transform: capitalize;
+}
 
+.artist-button{
+    display: inline-block;
+    outline: 0;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 4px;
+    font-size: 13px;
+    height: 30px;
+    background-color: #e40ec70d;/*>>Button color<<<*/
+    color: #0e0e10;
+    padding: 0 20px;
+    
+} a {
+    text-decoration: none;
+    color:inherit
+    
+}
