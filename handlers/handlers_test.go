@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"testing"
 
-	"tracker/helpers"
+	"tracker/models"
 )
 
 func TestDateHandler(t *testing.T) {
@@ -18,14 +18,14 @@ func TestDateHandler(t *testing.T) {
 	originalFetchDateFunc := fetchDatesFunc
 	defer func() { fetchDatesFunc = originalFetchDateFunc }()
 
-	fetchDatesFunc = func(id string) (helpers.Date, error) {
+	fetchDatesFunc = func(id string) (models.Date, error) {
 		idNum, _ := strconv.Atoi(id)
 		if idNum == 1 {
-			return helpers.Date{
+			return models.Date{
 				Id: 1, Dates: []string{"2023-01-01"},
 			}, nil
 		}
-		return helpers.Date{}, fmt.Errorf("error fetching dates")
+		return models.Date{}, fmt.Errorf("error fetching dates")
 	}
 	tests := []struct {
 		name               string
@@ -99,15 +99,15 @@ func TestLocationHandler(t *testing.T) {
 	originalFetchLocationsFunc := fetchLocationsFunc
 	defer func() { fetchLocationsFunc = originalFetchLocationsFunc }()
 
-	fetchLocationsFunc = func(id string) (helpers.Location, error) {
+	fetchLocationsFunc = func(id string) (models.Location, error) {
 		idNum, _ := strconv.Atoi(id)
 		if idNum == 1 {
-			return helpers.Location{
+			return models.Location{
 				ArtistId: 1, Locations: []string{"2023-01-01"},
 				Date: "",
 			}, nil
 		}
-		return helpers.Location{}, fmt.Errorf("error fetching dates")
+		return models.Location{}, fmt.Errorf("error fetching dates")
 	}
 	tests := []struct {
 		name               string

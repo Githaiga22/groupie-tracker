@@ -8,12 +8,12 @@ import (
 	"os"
 	"strconv"
 
-	helper "tracker/helpers"
+	model "tracker/models"
 	"tracker/src"
 )
 
 var (
-	AllArtistInfo      []helper.Data
+	AllArtistInfo      []model.Data
 	fetchDatesFunc     = src.FetchDates
 	fetchLocationsFunc = src.FetchLocations
 )
@@ -195,7 +195,7 @@ func HomepageHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		for _, artistsInfo := range artists {
-			var tempdate helper.Data
+			var tempdate model.Data
 			tempdate.Name = artistsInfo.Name
 			tempdate.Id = artistsInfo.Id
 			tempdate.FirstAlbum = artistsInfo.FirstAlbum

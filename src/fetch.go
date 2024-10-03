@@ -7,30 +7,30 @@ import (
 	"net/http"
 	"strconv"
 
-	helper "tracker/helpers"
+	model "tracker/models"
 )
 
-var Data helper.Data
+var Data model.Data
 
-func FetchArtists() ([]helper.Artist, error) {
+func FetchArtists() ([]model.Artist, error) {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
 
-	var artists []helper.Artist
+	var artists []model.Artist
 	if err := json.NewDecoder(resp.Body).Decode(&artists); err != nil {
 		return nil, err
 	}
 	return artists, nil
 }
 
-func FetchLocations(id string) (helper.Location, error) {
+func FetchLocations(id string) (model.Location, error) {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
 	if err != nil {
 		fmt.Println("Error reading the response body:", err)
-		return helper.Location{}, err
+		return model.Location{}, err
 	}
 	defer resp.Body.Close()
 
@@ -38,18 +38,18 @@ func FetchLocations(id string) (helper.Location, error) {
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println("Error reading the response body:", err)
-		return helper.Location{}, err
+		return model.Location{}, err
 	}
 	// Unmarshal the JSON data into Go structs
-	var data helper.AllLocations
+	var data model.AllLocations
 	err = json.Unmarshal(body, &data)
 	if err != nil {
 		fmt.Println("Error unmarshalling JSON:", err)
-		return helper.Location{}, err
+		return model.Location{}, err
 	}
 
 	Data.Locations = data.Location
-	var locations helper.Location
+	var locations model.Location
 
 	for _, Artistid := range data.Location {
 		idNum, _ := strconv.Atoi(id)
@@ -61,29 +61,29 @@ func FetchLocations(id string) (helper.Location, error) {
 	return locations, nil
 }
 
-func FetchDates(id string) (helper.Date, error) {
+func FetchDates(id string) (model.Date, error) {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/dates")
 	if err != nil {
 		fmt.Println("Error reading the response body:", err)
-		return helper.Date{}, err
+		return model.Date{}, err
 	}
 	defer resp.Body.Close()
 
-	var data helper.RootDates
+	var data model.RootDates
 	// Read the response body
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println("Error reading the response body:", err)
-		return helper.Date{}, err
+		return model.Date{}, err
 	}
 	// Unmarshal the JSON data into Go structs
 	err = json.Unmarshal(body, &data)
 	if err != nil {
 		fmt.Println("Error unmarshalling JSON:", err)
-		return helper.Date{}, err
+		return model.Date{}, err
 	}
 
-	var dates helper.Date
+	var dates model.Date
 
 	Data.Dates = data.Tdates
 
@@ -103,7 +103,7 @@ func FetchDates(id string) (helper.Date, error) {
 	return dates, nil
 }
 
-func FetchDatesAndConcerts(id string) (helper.DatesLocations, error) {
+func FetchDatesAndConcerts(id string) (model.DatesLocations, error) {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api/relation")
 	if err != nil {
 		fmt.Println("Error reading the response body:", err)
@@ -111,7 +111,7 @@ func FetchDatesAndConcerts(id string) (helper.DatesLocations, error) {
 	}
 	defer resp.Body.Close()
 
-	var data helper.RootsRelation
+	var data model.RootsRelation
 
 	// Read the response body
 	body, err := io.ReadAll(resp.Body)
@@ -127,7 +127,7 @@ func FetchDatesAndConcerts(id string) (helper.DatesLocations, error) {
 		return nil, err
 	}
 
-	var datesLocations helper.DatesLocations
+	var datesLocations model.DatesLocations
 
 	for _, Artistid := range data.Relation {
 		idNum := strconv.Itoa(Artistid.Id)
