@@ -2,7 +2,7 @@
 
 ## Project Overview
  
- Groupie Tracker is a web application designed to help music enthusiasts keep track of their favorite artists and bands. The application allows users to search for artists, view their discography, and explore similar artists.
+ Groupie Tracker is a web application designed to help music enthusiasts keep track of their favorite artists and bands. The application allows users to see artists, view their discography, and explore similar artists.
 
 ### Features:
 
@@ -31,10 +31,10 @@ git clone https://learn.zone01kisumu.ke/git/allkamau/groupie-tracker.git
  ```
 4. Run the application: 
 ```bash
-go run main.go
+go run .
 ```
 ### How to Run:
-1. Open a web browser and navigate to http://localhost:8080
+1. Open a web browser and navigate to http://localhost:8081
 3. Explore the artist's profile page, discography, and similar artists
 
 ### Contributing:
