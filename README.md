@@ -6,7 +6,6 @@
 
 ### Features:
 
-- Artist search functionality (future feature)
 - Artist profile pages with discography and biography
 - Similar artist recommendations
 - Responsive design for optimal user experience
